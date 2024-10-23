@@ -7,12 +7,15 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "changeDetection": "OnPush",
+          "standalone": true,
+          "skipTests": true
         }
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "riffle",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -97,6 +100,12 @@
           }
         }
       }
+    }
+  },
+  "cli": {
+    "analytics": "5b89cd96-6230-499f-a552-7b89e5164f25",
+    "cache": {
+      "enabled": false
     }
   }
 }

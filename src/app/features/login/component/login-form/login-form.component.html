@@ -1,0 +1,31 @@
+<form [formGroup]="loginForm">
+  <div class="mb-4">
+    <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email hoặc số điện thoại</label>
+    <input
+      type="text"
+      id="email"
+      class="w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      formControlName="username"
+      name="email"
+    />
+  </div>
+  <div class="mb-6">
+    <label for="password" class="block text-gray-300 text-sm font-bold mb-2">Mật khẩu</label>
+    <input
+      type="password"
+      id="password"
+      class="w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      formControlName="password"
+      name="password"
+    />
+  </div>
+  <div class="flex items-center justify-between">
+    <riffle-button
+      label="Đăng nhập"
+      [disabled]="loginForm.invalid"
+      (btnClicked)="handleSubmit()"
+      class="bg-blue-500 text-white hover:bg-blue-700"
+    />
+  </div>
+    <a href="#" class="text-blue-400 hover:text-blue-600">Quên mật khẩu?</a>
+</form>
