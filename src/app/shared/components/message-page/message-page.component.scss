@@ -1,0 +1,11 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.emoji-mart {
+    max-height: 30px;
+    overflow-y: auto;
+    border: 1px solid #40444b;
+    background-color: #36393f;
+}

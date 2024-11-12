@@ -1,0 +1,26 @@
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-sans">
+    <div class="bg-[#313338] rounded-lg shadow-lg w-full max-w-md p-6">
+      <div class="flex justify-end">
+        <button class="text-gray-400 hover:text-white" (click)="onClose()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <h2 class="text-2xl text-center text-white mb-2">Đổi tên người dùng</h2>
+      <p class="text-gray-400 text-sm text-center mb-4">Nhập tên người dùng mới và mật khẩu hiện tại.</p>
+      <div class="mb-4">
+        <label class="block text-gray-400 text-xs font-semibold mb-2">TÊN ĐĂNG NHẬP</label>
+        <input type="text" class="w-full bg-[#202225] text-white p-2 rounded focus:outline-none" placeholder="tungseo" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-400 text-xs font-semibold mb-2">MẬT KHẨU HIỆN TẠI</label>
+        <input type="text" class="w-full bg-[#202225] text-white p-2 rounded focus:outline-none" />
+      </div>
+
+      <div class="flex justify-between">
+        <button class="text-gray-300 hover:text-white text-sm" (click)="onClose()">Trở lại</button>
+        <button class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 text-sm">Xong</button>
+      </div>
+    </div>
+</div>

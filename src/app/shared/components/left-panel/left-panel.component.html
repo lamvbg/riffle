@@ -1,0 +1,65 @@
+<div
+  class="bg-[#2e3136] text-white w-64 h-screen flex flex-col overflow-y-auto custom-scroll"
+>
+  <div class="p-4 border-b border-neutral-900">
+    <h2 class="text-lg font-semibold">{{serverName}}</h2>
+  </div>
+  <div class="flex-grow overflow-y-auto">
+    <div class="p-4">
+      <button
+        class="flex items-center w-full text-left hover:bg-[#3a3d42] p-2 rounded"
+      >
+        <span class="material-icons">event</span>
+        <span class="ml-2">Event</span>
+      </button>
+    </div>
+
+    <div class="h-px mt-3 ml-3 mr-3 bg-neutral-600"></div>
+
+    <div>
+      @for (channel of channelItems; track channel) {
+        <riffle-channel
+          [name]="channel.name"
+          [type]="channel.type"
+          (click)="onSelectChannel(channel.id)"
+        />
+      }
+    </div>
+  </div>
+  <div class="p-4 border-t border-neutral-700 flex items-center bg-[#232428]">
+    <img
+      *ngIf="profile?.imageUrl"
+      [src]="profile?.imageUrl"
+      alt="User Avatar"
+      class="h-10 w-10 rounded-full"
+    />
+    <div class="ml-2">
+      <div class="text-sm font-semibold">{{ profile?.name }}</div>
+      <div class="text-xs text-green-500">Trực tuyến</div>
+    </div>
+    <div class="ml-auto flex space-x-2">
+      <button
+        class="material-icons w-6 text-center transition transform hover:animate-shake"
+        [ngClass]="micOn ? 'text-gray-400' : 'text-red-500'"
+        (click)="toggleMic()"
+      >
+        {{ micOn ? "mic_on" : "mic_off" }}
+      </button>
+
+      <button
+        class="material-icons w-6 text-center transition transform hover:animate-shake"
+        [ngClass]="headphoneOn ? 'text-gray-400' : 'text-red-500'"
+        (click)="toggleHeadphone()"
+      >
+        {{ headphoneOn ? "headset" : "headset_off" }}
+      </button>
+
+      <button
+        routerLink="/setting"
+        class="material-icons w-6 text-center text-gray-400 hover:text-white transition transform hover:animate-rotate"
+      >
+        settings
+      </button>
+    </div>
+  </div>
+</div>

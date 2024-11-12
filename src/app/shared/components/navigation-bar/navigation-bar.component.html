@@ -1,1 +1,41 @@
-<p>navigation-bar works!</p>
+<div
+  class="space-y-4 bg-[#191b1d] text-white h-screen w-16 flex flex-col items-center py-3 overflow-x-hidden overflow-y-auto custom-scroll"
+>
+  <div
+    class="w-12 h-12 rounded-full bg-neutral-700 hover:bg-indigo-600 hover:rounded-xl flex items-center justify-center"
+  >
+    <img src="/images/logo.png" alt="Discord Logo" class="h-14 w-14" />
+  </div>
+
+  <div class="my-2 w-10 h-[2px] bg-zinc-500 rounded"></div>
+
+  <div>
+    @for (serverItem of serverItems; track serverItem) {
+      <riffle-server-item
+        [iconSrc]="serverItem.imageUrl"
+        [matTooltip]="serverItem.name"
+        [altText]="serverItem.name"
+        (click)="onSelectServer(serverItem.id)"
+      />
+    }
+  </div>
+
+  <button
+    class="w-12 h-12 rounded-full bg-neutral-700 hover:bg-green-600 hover:rounded-xl flex items-center justify-center group"
+    (click)="openDialog()"
+  >
+    <span class="material-icons text-green-600 group-hover:text-white"
+      >add</span
+    >
+  </button>
+
+  <div class="my-2 w-10 h-[2px] bg-zinc-500 rounded"></div>
+
+  <button
+    class="w-12 h-12 rounded-full bg-neutral-700 hover:bg-green-600 hover:rounded-xl flex items-center justify-center group"
+  >
+    <span class="material-icons text-green-600 group-hover:text-white"
+      >download</span
+    >
+  </button>
+</div>

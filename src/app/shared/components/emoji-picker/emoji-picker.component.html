@@ -1,0 +1,35 @@
+<div class="bg-[#2b2d31] p-4 rounded-lg w-full max-w-screen-md mx-auto max-h-full font-sans shadow-black shadow-lg custom-scroll">
+  <div class="flex justify-start items-center mb-4 border-b text-base font-bold border-gray-600 pb-2">
+    <button class="text-[#b5bac1] px-4 py-1 hover:text-gray-300 hover:bg-opacity-40 hover:rounded-lg hover:bg-[#404249] mr-1" [class.activeTab]="activeTab === 'emoji'" (click)="activeTab = 'emoji'">
+      Emoji
+    </button>
+    <button class="text-[#b5bac1] px-4 py-1 hover:text-gray-300 hover:bg-opacity-40 hover:rounded-lg hover:bg-[#404249]" [class.activeTab]="activeTab === 'sticker'" (click)="activeTab = 'sticker'">
+      Sticker
+    </button>
+  </div>
+
+  <div class="flex flex-col sm:flex-row">
+    <div class="w-full sm:w-1/6 bg-[#202225] p-2">
+      <div *ngFor="let category of filteredCategories" class="text-gray-400 mb-2 cursor-pointer text-center sm:text-left" (click)="scrollToCategory(category.name)">
+        {{ category.icon || category.name }}
+      </div>
+    </div>
+
+    <div class="flex-grow p-2 overflow-y-auto max-h-80">
+      <div *ngFor="let category of filteredCategories" #categoryElement>
+        <div class="flex items-center justify-between text-gray-400 cursor-pointer mb-1" (click)="toggleCategory(category.name)">
+          <span>{{ category.name }}</span>
+          <span class="material-icons">{{ activeCategories.has(category.name) ? 'expand_less' : 'expand_more' }}</span>
+        </div>
+        <div *ngIf="activeCategories.has(category.name)" [ngClass]="activeTab === 'emoji' ? 'grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1 mb-2' : 'grid grid-cols-3 gap-14 mb-2'">
+          <ng-container *ngIf="activeTab === 'emoji' && category.emojis">
+            <span class="emoji text-center" *ngFor="let emoji of category.emojis" (click)="selectEmoji(emoji)">{{ emoji }}</span>
+          </ng-container>
+          <ng-container *ngIf="activeTab === 'sticker' && category.stickers">
+            <img *ngFor="let sticker of category.stickers" [src]="sticker" alt="sticker" class="w-20 h-20 sm:w-24 sm:h-24 cursor-pointer" (click)="selectEmoji(sticker)" />
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

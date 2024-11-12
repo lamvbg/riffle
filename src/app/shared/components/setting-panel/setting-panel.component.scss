@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.sidebarRegion {
+    display: flex;
+    flex: 1 0 192px;
+    z-index: 1;
+    justify-content: flex-end;
+}
+
+.svg-stop-color {
+    stop-color: #b44daf;
+  }
+
+  .svg-selected .svg-stop-color {
+    stop-color: white;
+  }

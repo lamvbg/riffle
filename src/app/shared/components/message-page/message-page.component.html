@@ -1,0 +1,80 @@
+<div class="flex flex-col bg-[#36393f] h-screen font-sans w-full custom-scroll">
+  <div
+    class="flex items-center justify-between p-4 border-b border-neutral-800"
+  >
+    <div class="text-lg font-semibold text-white">{{ channelName }}</div>
+    <div class="flex space-x-2">
+      <button class="material-icons text-gray-400 hover:text-white">
+        notifications
+      </button>
+      <button class="material-icons text-gray-400 hover:text-white">
+        push_pin
+      </button>
+      <button class="material-icons text-gray-400 hover:text-white">
+        person_add
+      </button>
+      <div class="relative w-1/2 bg-[#1e1f22] rounded pr-10">
+        <input
+          type="text"
+          placeholder="Tìm kiếm"
+          class="w-full text-xs bg-[#1e1f22] pl-2 pr-4 py-1.5 rounded text-white"
+        />
+        <span
+          class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+        >
+          search
+        </span>
+      </div>
+      <button class="material-icons text-gray-400 hover:text-white">
+        help_outline
+      </button>
+    </div>
+  </div>
+
+  <div
+    #messageContainer
+    class="flex w-full flex-grow items-end overflow-y-auto custom-scroll px-4 pb-4"
+  >
+    <div class="flex flex-col w-full max-h-full overflow-y-auto space-y-2">
+      @for (message of messages; track message) {
+        <riffle-message
+          [name]="message.member.profile.name"
+          [image]="message.member.profile.imageUrl"
+          [message]="message.content"
+          [time]="formatTime(message.createdAt)"
+        />
+      }
+    </div>
+  </div>
+
+  <div class="flex items-center p-4 border-t border-neutral-800 relative">
+    <button
+      class="material-icons text-gray-400 hover:text-white"
+      (click)="openDialog()"
+    >
+      add
+    </button>
+    <input
+      id="messageInput"
+      type="text"
+      [(ngModel)]="message"
+      placeholder="Nhắn tin #chung"
+      class="flex-grow mx-4 p-2 bg-[#40444b] rounded text-white"
+    />
+    <button class="material-icons text-gray-400 hover:text-white">gif</button>
+    <button
+      (click)="toggleEmojiPicker()"
+      class="material-icons text-gray-400 hover:text-white"
+    >
+      emoji_emotions
+    </button>
+    <button class="material-icons text-gray-400 hover:text-white"
+    (click)="sendMessage()">send</button>
+
+    <riffle-emoji-picker
+      *ngIf="showEmojiPicker"
+      (emojiSelected)="addEmoji($event)"
+      class="absolute bottom-12 right-4 z-10"
+    ></riffle-emoji-picker>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-2px); }
+    40%, 80% { transform: translateX(2px); }
+  }
+  
+  @keyframes rotate-360 {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .animated {
+    &.animate-shake {
+      animation: shake 0.5s ease-in-out;
+    }
+    &.hover\:rotate-360:hover {
+      animation: rotate-360 0.5s linear;
+    }
+  }
+  

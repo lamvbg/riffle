@@ -1,0 +1,237 @@
+<div
+  class="bg-[#2e3136] w-full sm:w-3/4 md:w-1/2 min-h-screen p-4 sm:p-8 text-white font-sans overflow-auto custom-scroll"
+>
+  <div class="max-w-3xl mx-auto pb-10">
+    <div class="flex flex-col md:flex-row items-center justify-between mb-2">
+      <h1 class="text-lg md:text-xl font-medium">Hồ sơ</h1>
+      <button
+        class="flex flex-col items-center text-gray-400 hover:text-white mt-5"
+        routerLink="/home"
+      >
+        <div
+          class="w-8 h-8 flex items-center justify-center border border-gray-400 rounded-full mb-1"
+        >
+          <span class="text-xl pb-1">×</span>
+        </div>
+        <span class="text-xs">ESC</span>
+      </button>
+    </div>
+
+    <div class="flex items-center profileS p-4 rounded-lg mb-6 bg-[#1e1f22]">
+      <img
+        src="/images/profileS2.png"
+        alt="Profile"
+        class="rounded-full w-12 h-12 sm:w-14 sm:h-14 mr-4"
+      />
+      <div>
+        <h2 class="font-semibold text-base sm:text-lg">
+          Buff up your profile with D&D.
+        </h2>
+        <p class="text-sm text-gray-400">
+          Show off your adventurer's spirit...
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row">
+      <div class="flex-1 md:mr-4">
+        <label class="block text-xs text-gray-400 font-bold mb-2"
+          >TÊN HIỂN THỊ</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="displayName"
+          class="w-full bg-[#1e1f22] p-2 rounded mb-4 text-sm"
+        />
+
+        <div class="h-px bg-neutral-600 mb-6"></div>
+
+        <label class="block text-xs text-gray-400 font-bold mb-2"
+          >ĐẶT TỪ NHÂN XƯNG</label
+        >
+        <input
+          type="text"
+          class="w-full bg-[#1e1f22] p-2 rounded mb-4 text-sm"
+          placeholder="Thêm đại từ nhân xưng của b"
+        />
+
+        <div class="h-px bg-neutral-600 mb-6"></div>
+
+        <div class="flex flex-col">
+          <label class="block text-xs text-gray-400 font-bold mb-3"
+            >ẢNH ĐẠI DIỆN</label
+          >
+          <div class="flex flex-row">
+            <button
+              class="bg-indigo-500 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded mb-4 mr-2"
+              (click)="openDialogChangeAvatar()"
+            >
+              Đổi Ảnh Đại Diện
+            </button>
+            <button class="text-white hover:underline text-sm mb-4">
+              Xóa Ảnh Đại Diện
+            </button>
+          </div>
+
+          <div class="h-px bg-neutral-600 my-6"></div>
+
+          <label class="block text-xs text-gray-400 font-bold mb-2"
+            >TRANG TRÍ ẢNH ĐẠI DIỆN</label
+          >
+          <button
+            class="bg-indigo-500 hover:bg-indigo-700 w-full sm:w-1/2 text-white text-sm px-4 py-2 rounded mb-4"
+          >
+            Thay Đổi Trang Trí
+          </button>
+
+          <div class="h-px bg-neutral-600 my-6"></div>
+
+          <label class="block text-xs text-gray-400 font-bold mb-2"
+            >HIỆU ỨNG HỒ SƠ</label
+          >
+          <button
+            class="bg-indigo-500 hover:bg-indigo-700 w-full sm:w-1/2 text-white text-sm px-4 py-2 rounded mb-4"
+          >
+            Thay Đổi Hiệu Ứng
+          </button>
+
+          <div class="h-px bg-neutral-600 my-6"></div>
+        </div>
+
+        <label class="block text-xs text-gray-400 font-bold mb-2"
+          >MÀU BIỂU NGỮ</label
+        >
+        <div class="relative flex items-center mb-4">
+          <div
+            class="material-icons absolute left-1 font-semibold text-gray-400 text-xs top-2 cursor-default"
+          >
+            edit
+          </div>
+          <input
+            type="color"
+            class="w-1/6 h-14 bg-[{{ bannerColor }}] rounded"
+            [(ngModel)]="bannerColor"
+            (input)="updateBannerColor()"
+          />
+        </div>
+
+        <div class="h-px bg-neutral-600 my-6"></div>
+
+        <label class="block text-xs text-gray-400 font-bold mb-2"
+          >GIỚI THIỆU VỀ TÔI</label
+        >
+        <p class="text-sm text-gray-400 mb-4">
+          Bạn có thể sử dụng các mã đánh dấu và đường liên kết nếu muốn.
+        </p>
+        <div class="relative">
+            <textarea
+            [(ngModel)]="bio"
+            class="w-full bg-[#1e1f22] p-2 pr-10 rounded mb-2 text-sm"
+            rows="4"
+          ></textarea>
+          <button
+            (click)="toggleEmojiPicker()"
+            class="absolute top-0 right-0 mt-2 mr-2 text-gray-400 hover:text-white"
+          >
+            <span class="material-icons">emoji_emotions</span>
+          </button>
+
+          <riffle-emoji-picker
+            *ngIf="showEmojiPicker"
+            (emojiSelected)="addEmoji($event)"
+            class="absolute bottom-32 right-2 z-10"
+          ></riffle-emoji-picker>
+        </div>
+
+        <div class="h-px bg-neutral-600 my-6"></div>
+      </div>
+
+      <div
+        class="w-full md:w-1/2 h-full bg-[#111214] rounded-lg p-4 sm:p-6 relative mt-6 md:mt-0"
+      >
+        <div
+          class="absolute top-0 left-0 w-full h-20 sm:h-28 rounded-t-lg"
+          [ngStyle]="{ 'background-color': bannerColor }"
+        ></div>
+        <div class="relative z-8 flex flex-col items-start py-8">
+          <div
+            class="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-700 rounded-full border-4 border-[#1e1f22]"
+          >
+            <img
+              src="{{ this.profile?.imageUrl }}"
+              alt="Avatar"
+              class="w-full h-full rounded-full object-cover"
+            />
+            <div
+              class="absolute bottom-0 right-0 w-4 h-4 bg-[#23a55a] rounded-full border-2 border-[#1e1f22]"
+            ></div>
+          </div>
+          <div class="mt-4 text-start">
+            <h3 class="font-bold text-white text-base sm:text-lg">@if (this.setting[0]) {
+              {{ this.setting[0].displayName }}
+            }</h3>
+            <div class="flex items-center">
+              <p class="text-sm text-gray-400">@if (this.setting[0]) {
+                {{ this.setting[0].displayName }}
+              }</p>
+              <img
+                *ngIf="isChecked"
+                src="/images/icon1.png"
+                alt=""
+                class="w-6 h-6 cursor-pointer"
+              />
+            </div>
+          </div>
+          <button
+            class="absolute left-1/4 bottom-1/2 min-w-max max-w-xs p-2 flex items-center space-x-2 bg-[#383a40] hover:text-gray-200 text-gray-400 text-sm rounded-lg shadow-2xl transition-opacity duration-300"
+          >
+            <input
+            [(ngModel)]="status"
+            class="w-full bg-[#383a40] pr-10 rounded text-xs"
+            rows="1"
+            />
+          </button>
+        </div>
+
+        <button
+          class="bg-[#4e5058] hover:bg-gray-600 text-white text-sm px-4 py-2 rounded w-full mt-6"
+        >
+          Nút Ví dụ
+        </button>
+      </div>
+    </div>
+
+    <div class="flex items-center mb-2">
+      <span class="text-base mr-2">Hủy Hiện Tên Người Dùng Cũ</span>
+      <riffle-toggle [(isChecked)]="isChecked"></riffle-toggle>
+    </div>
+    <p class="text-sm text-gray-400 mb-4" *ngIf="isChecked">
+      @if (this.setting[0]) {
+        Hiển thị {{ this.setting[0].displayName }}#{{ this.profile?.userId }} trên hồ sơ của bạn.
+      }
+    </p>
+
+    <div
+      *ngIf="hasChanges()"
+      class="flex justify-between space-x-4 pt-2 pb-2 pr-2 mb-10 bg-[#111214] fixed bottom-0 left-0 right-0 md:w-1/2 mx-auto rounded"
+    >
+      <p class="text-base font-semibold text-gray-300 pl-2 pt-1">
+        Hãy cẩn thận – bạn chưa lưu các thay đổi!
+      </p>
+      <div>
+        <button
+          class="text-sm font-semibold hover:underline text-white px-4 py-2 rounded"
+          (click)="resetChanges()"
+        >
+          Đặt Lại
+        </button>
+        <button
+          class="bg-green-600 text-sm font-semibold hover:bg-green-700 text-white px-4 py-2 rounded"
+          (click)="saveChanges()"
+        >
+          Lưu Thay Đổi
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

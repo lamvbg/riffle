@@ -1,19 +1,37 @@
-<div class="flex items-center">
-  <img src="/images/logo.png" alt="Logo" class="h-10" />
-</div>
-<div class="flex-none justify-center max-h-screen">
-  <div class="flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-lg bg-gray-800 rounded-lg shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-6 text-center text-white">Chào mừng trở lại!</h2>
-      <p class="text-center text-gray-400 mb-4">Rất vui mừng khi được gặp lại bạn!</p>
+<div class="flex flex-col min-h-screen font-sans">
+  <div class="flex items-center pl-6 pt-4">
+    <div
+      routerLink="/landing-page"
+      class="flex items-center cursor-pointer text-white font-semibold"
+    >
+      <img src="/images/logo.png" alt="Logo" class="h-10 sm:h-12 pr-2" />
+      <p class="text-lg font-bold">Riffle</p>
+    </div>
+  </div>
+  <div class="flex-grow flex items-center justify-center">
+    <div class="w-full max-w-lg bg-[#313338] rounded-lg shadow-lg p-8">
+      <h2 class="text-2xl font-bold mb-6 text-center text-white">
+        Chào mừng trở lại!
+      </h2>
+      <p class="text-center text-gray-400 mb-4">
+        Rất vui mừng khi được gặp lại bạn!
+      </p>
 
       @if (isRegister()) {
-        <riffle-register-form/>
+        <riffle-register-form (registerSuccess)="handleRegisterSuccess()" />
       } @else {
-        <riffle-login-form/>
+        <riffle-login-form />
       }
+
       <div class="text-center mt-4">
-        <p class="text-gray-400 mt-2">Cần một tài khoản? <a (click)="handleToggle()" class="text-blue-400 hover:text-blue-600 cursor-pointer">Đăng ký</a></p>
+        <p class="text-gray-400 mt-2">
+          Cần một tài khoản?
+          <a
+            (click)="handleToggle()"
+            class="text-blue-400 hover:text-blue-600 cursor-pointer"
+            >Đăng ký</a
+          >
+        </p>
       </div>
     </div>
   </div>

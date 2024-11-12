@@ -1,0 +1,58 @@
+<div
+  class="bg-[#2e3136] w-full sm:w-3/4 md:w-1/2 min-h-screen p-4 sm:p-8 text-white font-sans overflow-auto custom-scroll">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between mb-2">
+      <h1 class="text-lg md:text-xl font-medium">Nitro</h1>
+      <button class="flex flex-col items-center text-gray-400 hover:text-white mt-5" routerLink="/home">
+        <div class="w-8 h-8 flex items-center justify-center border border-gray-400 rounded-full mb-1">
+          <span class="text-xl pb-1">×</span>
+        </div>
+        <span class="text-xs">ESC</span>
+      </button>
+    </div>
+    <div class="bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg p-8 text-center mb-8">
+      <h1 class="text-3xl font-extrabold mt-6 mb-6">Mở Khóa Vô Vàn Đặc <br> Quyền Cùng Nitro</h1>
+      <p class="text-lg mb-6">Gói có giá chỉ từ 42.000 ₫/tháng. Hủy bất cứ lúc nào</p>
+      <div class="flex justify-center space-x-4">
+        <button class="bg-white text-blue-500 px-4 py-2 rounded-lg font-bold mb-8">Đăng ký</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <div class="bg-gradient-to-b from-blue-500 to-blue-700 rounded-lg p-6 text-left">
+        <h2 class="text-xl font-bold mb-2">NITRO BASIC</h2>
+        <p class="font-extrabold text-2xl mb-4">Cơ Bản</p>
+        <p class="text-lg font-bold mb-4">42.000 ₫ / tháng</p>
+        <ul class="text-left space-y-2">
+          <li>✔️ Emoji tùy chọn tại bất cứ đâu</li>
+          <li>✔️ 50MB lượt tải lên</li>
+          <li>✔️ Tùy biến biểu tượng ứng dụng</li>
+        </ul>
+        <button class="mt-4 bg-white text-blue-500 px-4 py-2 rounded-lg font-bold">Đăng ký</button>
+      </div>
+
+      <div class="bg-gradient-to-b from-purple-500 to-pink-500 rounded-lg p-6 text-left">
+        <h2 class="text-xl font-bold mb-2">NITRO</h2>
+        <p class="font-extrabold mb-4 text-2xl">Tất Cả Đặc Quyền</p>
+        <p class="text-lg font-bold mb-4">113.000 ₫ / tháng</p>
+        <ul class="text-left space-y-2">
+          <li>✔️ Mọi thứ có trong gói Basic, cộng thêm</li>
+          <li>✔️ Hỗ sơ tùy chỉnh</li>
+          <li>✔️ 500MB lượt tải lên</li>
+          <li>✔️ Đang stream video HD</li>
+          <li>✔️ Chủ đề màu ứng dụng và hơn thế nữa!</li>
+        </ul>
+        <button class="mt-4 bg-white text-purple-500 px-4 py-2 rounded-lg font-bold">Đăng ký</button>
+      </div>
+    </div>
+
+    <h2 class="text-3xl font-bold mb-8 text-center">Các đặc quyền Nitro yêu thích</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      @for (section of sections; track section) {
+      <riffle-setting-nitro-section [title]="section.title" [image]="section.image"
+        [description]="section.description"></riffle-setting-nitro-section>
+      }
+    </div>
+  </div>
+
+</div>

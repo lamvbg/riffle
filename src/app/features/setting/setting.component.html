@@ -1,1 +1,13 @@
-<p>setting works!</p>
+<div class="flex h-screen">
+  <riffle-setting-panel
+    class="w-full md:w-96 bg-[#2b2d31] text-gray-400 overflow-y-auto custom-scroll max-h-screen"
+    (menuClick)="onPanelClick($event)"
+  >
+  </riffle-setting-panel>
+
+  <div
+    class="flex-grow overflow-y-auto bg-[#2e3136] p-8 text-white custom-scroll"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>

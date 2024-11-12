@@ -1,0 +1,149 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+>
+  <div class="bg-[#313338] rounded-lg shadow-lg w-full max-w-md p-6">
+    <div class="flex justify-end">
+      <button
+        class="text-gray-400 hover:text-white"
+        aria-label="Đóng"
+        type="button"
+        (click)="onClose()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <h2 class="text-2xl text-center text-white mb-2">Thêm Tệp Tin</h2>
+    <p class="text-gray-400 text-sm text-center mb-4">
+      Bạn có thể thêm hình ảnh, file zip, tài liệu Word, hoặc file văn bản.
+    </p>
+
+    <div class="flex flex-col items-center mb-4">
+      <input
+        #fileInput
+        type="file"
+        class="hidden"
+        (change)="onFileSelected($event)"
+        accept=".jpg,.jpeg,.png,.zip,.docx,.txt"
+      />
+      <button
+        type="button"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        (click)="triggerFileInput($event)"
+      >
+        Chọn Tệp
+      </button>
+    </div>
+
+    <div *ngIf="isLoading" class="w-full max-w-xs mx-auto mt-2">
+      <div class="upload-progress relative h-4 bg-gray-200 rounded-full">
+        <div
+          [style.width.%]="uploadProgress"
+          class="progress-bar absolute h-full bg-indigo-500 rounded-full"
+        ></div>
+      </div>
+      <div class="text-white text-center mt-1 text-sm">
+        {{ uploadProgress }}%
+      </div>
+    </div>
+
+    <div *ngIf="uploadedFile" class="relative mt-4">
+      <ng-container *ngIf="isImage(); else fileIcon">
+        <img
+          [src]="uploadedFile.url"
+          alt="Uploaded Image"
+          class="w-12 h-12 rounded object-cover"
+        />
+      </ng-container>
+      <ng-template #fileIcon>
+        <div
+          class="w-full h-24 flex items-center justify-center bg-gray-700 rounded"
+        >
+          <svg
+            *ngIf="isZip()"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="w-12 h-12 text-yellow-600"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"
+            />
+            <rect x="10" y="9" width="4" height="10" fill="white" />
+            <rect x="10" y="9" width="4" height="2" fill="black" />
+          </svg>
+
+          <svg
+            *ngIf="isDocument()"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="w-12 h-12 text-blue-500"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"
+            />
+            <text x="8" y="15" font-family="Arial" font-size="4" fill="white">
+              DOC
+            </text>
+          </svg>
+        </div>
+      </ng-template>
+      <div class="text-white text-xs mt-1 truncate">
+        {{ uploadedFile.name }}
+      </div>
+      <button
+        class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+        aria-label="Xóa tệp"
+        (click)="removeFile()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-4 h-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex justify-between mt-6">
+      <button
+        type="button"
+        class="text-gray-300 hover:text-white text-sm"
+        aria-label="Trở lại"
+        (click)="onClose()"
+      >
+        Trở lại
+      </button>
+      <button
+        type="button"
+        class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 text-sm"
+        [disabled]="!uploadedFile || isLoading"
+        (click)="onUploadComplete()"
+      >
+        Tải Lên
+      </button>
+    </div>
+  </div>
+</div>

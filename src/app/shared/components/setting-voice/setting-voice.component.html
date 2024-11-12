@@ -1,0 +1,88 @@
+<div
+  class="bg-[#2e3136] w-full sm:w-3/4 md:w-1/2 min-h-screen p-4 sm:p-8 text-white font-sans overflow-auto custom-scroll">
+  <div class="flex flex-col md:flex-row items-center justify-between mb-2">
+    <h1 class="text-lg md:text-xl font-medium">Cài đặt giọng nói</h1>
+    <button class="flex flex-col items-center text-gray-400 hover:text-white mt-5" routerLink="/home">
+      <div class="w-8 h-8 flex items-center justify-center border border-gray-400 rounded-full mb-1">
+        <span class="text-xl pb-1">×</span>
+      </div>
+      <span class="text-xs">ESC</span>
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div>
+      <label for="inputDevice" class="block font-bold mb-2 text-gray-400 text-xs uppercase">Thiết bị đầu vào</label>
+      <select id="inputDevice" class="bg-[#1e1f22] text-white p-2 rounded w-full">
+        <option>Default</option>
+      </select>
+    </div>
+    <div>
+      <label for="outputDevice" class="block font-bold mb-2 text-gray-400 text-xs uppercase">Thiết bị đầu ra</label>
+      <select id="outputDevice" class="bg-[#1e1f22] text-white p-2 rounded w-full">
+        <option>Default</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div>
+      <label class="block font-bold mb-2 text-gray-400 text-xs uppercase">Âm lượng đầu vào</label>
+      <input type="range" class="w-full" min="0" max="100" value="50">
+    </div>
+    <div>
+      <label class="block font-bold mb-2 text-gray-400 text-xs uppercase">Âm lượng đầu ra</label>
+      <input type="range" class="w-full" min="0" max="100" value="75">
+    </div>
+  </div>
+
+  <div class="mb-6">
+    <button class="bg-indigo-500 text-white px-4 py-2 rounded mb-2">Để Xem Nào</button>
+    <p>Kiểm tra mic của bạn. Nhấn để xem nào để kiểm tra âm thanh.</p>
+  </div>
+
+  <div class="mb-6 ">
+    <h3 class="font-bold mb-2 text-gray-400 text-xs uppercase">Chế độ đầu vào</h3>
+    <div class="flex items-center mb-2 bg-[#2b2d31] px-4 py-4 rounded">
+      <input type="radio" id="voiceActivity" name="inputMode" class="mr-2" checked>
+      <label for="voiceActivity">Hoạt Động Âm Thanh Voice</label>
+    </div>
+    <div class="flex items-center bg-[#2b2d31] px-4 py-4 rounded">
+      <input type="radio" id="pushToTalk" name="inputMode" class="mr-2">
+      <label for="pushToTalk">Nhấn Để Nói (Bị giới hạn)</label>
+    </div>
+  </div>
+
+  <div class="mb-6">
+    <label class="block font-semibold mb-2 text-gray-400 text-xs uppercase">Độ nhạy đầu vào</label>
+    <input type="range" class="w-full" min="0" max="100" value="50">
+    <p class="text-red-500 mt-2">Không có thiết bị thu âm nào được kích hoạt...</p>
+  </div>
+
+  <h3 class="text-lg md:text-xl font-medium mb-3">Biểu Cảm Tiếng</h3>
+  <div class="mb-6">
+    <label class="block font-semibold text-xs uppercase text-gray-400 mb-2">Biểu cảm tiếng</label>
+    <select class="bg-[#1e1f22] text-white p-2 rounded w-full">
+      <option>Default</option>
+    </select>
+  </div>
+  <div class="mb-6">
+    <label class="block font-semibold text-xs uppercase text-gray-400 mb-2">Âm lượng biểu cảm tiếng</label>
+    <input type="range" class="w-full" min="0" max="100" value="50">
+  </div>
+
+  <h3 class="text-lg md:text-xl font-medium mb-3">Âm thanh gia nhập</h3>
+  <div class="mb-6">
+    <label class="block font-semibold text-xs uppercase text-gray-400 mb-2">Chọn một máy chủ</label>
+    <select class="bg-[#1e1f22] text-white p-2 rounded w-full">
+      <option>Tất cả các máy chủ</option>
+    </select>
+  </div>
+
+  <div class="mb-6">
+    <label class="block font-semibold text-xs uppercase text-gray-400 mb-2">Chọn âm thanh</label>
+    <select class="bg-[#1e1f22] text-white p-2 rounded w-full">
+      <option>Không</option>
+    </select>
+  </div>
+</div>

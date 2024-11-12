@@ -1,0 +1,21 @@
+<div class="flex items-center">
+    <input type="checkbox" id="toggle" class="hidden" (change)="toggleSwitch()" [checked]="isChecked">
+    <label for="toggle" class="flex items-center cursor-pointer">
+        <div class="relative">
+            <div class="block w-14 h-8 rounded-full transition"
+                [ngClass]="{ 'bg-gray-500': !isChecked, 'bg-green-700': isChecked }"></div>
+            <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform"
+                [ngClass]="{ 'translate-x-full': isChecked }"></div>
+            <div class="absolute inset-0 flex items-center justify-between px-1 w-full h-full">
+                <div class="flex items-center justify-center w-6 h-6 rounded-full text-red-500"
+                    [ngClass]="{ 'opacity-0': isChecked }">
+                    <span class="text-xs">✖</span>
+                </div>
+                <div class="flex items-center justify-center w-6 h-6 rounded-full"
+                    [ngClass]="{ 'opacity-0': !isChecked, 'text-white': isChecked }">
+                    <span class="text-xs" [ngClass]="{ 'text-green-500': isChecked }">✔</span>
+                </div>
+            </div>
+        </div>
+    </label>
+</div>

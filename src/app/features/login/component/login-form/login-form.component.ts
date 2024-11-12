@@ -7,16 +7,27 @@ import {
 } from '@angular/forms';
 import { LoginFormModel } from './models/login-form.model';
 import { ButtonComponent } from '@app-ui';
+import { LoginService } from './services/login.service';
+import { ReplaySubject } from 'rxjs';
+import { UserModel } from 'src/app/core/models/user.model';
+import { UserStore } from 'src/app/core/stores/user.store';
 
 @Component({
   selector: 'riffle-login-form',
   standalone: true,
   imports: [ReactiveFormsModule, ButtonComponent],
+  providers: [LoginService],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
+  public readonly user$ = new ReplaySubject<UserModel>(1);
+
+  public constructor(
+    private loginService: LoginService,
+    private userStore: UserStore,
+  ) {}
   public readonly loginForm = new FormGroup<LoginFormModel>({
     username: new FormControl('', {
       nonNullable: true,
@@ -28,7 +39,16 @@ export class LoginFormComponent {
     }),
   });
 
-  public handleSubmit(): void {
-    alert(this.loginForm.value);
+  public handleLogin(): void {
+    this.loginService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).subscribe({
+      next: (value) => {
+        this.userStore.setUser(value);
+        this.user$.next(value.profile);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
+
 }

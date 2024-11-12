@@ -1,0 +1,198 @@
+<div
+  class="bg-[#2e3136] min-h-screen w-1/2 p-4 sm:p-8 text-white font-sans overflow-auto"
+>
+  <div class="max-w-3xl mx-auto">
+    <div
+      class="flex flex-col md:flex-row items-center justify-between mt-6 mb-2"
+    >
+      <h1 class="text-base md:text-lg font-medium">Tài Khoản Của Tôi</h1>
+      <button
+        class="flex flex-col items-center text-gray-400 hover:text-white mt-4 md:mt-0"
+        routerLink="/home"
+      >
+        <div
+          class="w-8 h-8 flex items-center justify-center border border-gray-400 rounded-full mb-1"
+        >
+          <span class="text-lg md:text-xl mb-1">×</span>
+        </div>
+        <span class="text-xs">ESC</span>
+      </button>
+    </div>
+
+    <div class="bg-[#1e1f22] rounded-lg p-4 sm:p-6 mb-10 relative">
+      <div
+        class="absolute top-0 left-0 w-full h-20 sm:h-28 rounded-t-lg"
+        [ngStyle]="{ 'background-color': bannerColor }"
+      ></div>
+      <div
+        class="relative flex flex-col md:flex-row items-center z-10 py-6 sm:py-10 md:py-12 space-y-4 md:space-y-0 md:space-x-4"
+      >
+        <div
+          class="relative w-14 h-14 sm:w-20 sm:h-20 bg-gray-700 rounded-full overflow-visible border-4 border-[#1e1f22]"
+        >
+          <img
+            src="{{ this.profile?.imageUrl }}"
+            alt=""
+            class="w-full h-full rounded-full object-cover"
+          />
+          <div
+            class="absolute bottom-0 right-0 w-4 h-4 bg-[#23a55a] rounded-full border-2 border-[#1e1f22] z-20"
+          ></div>
+        </div>
+        <div class="flex-1 pt-8">
+          <h3 class="text-sm sm:text-base md:text-lg font-medium">
+            {{ this.profile?.name }}
+          </h3>
+          <div
+            class="bg-[#2b2d31] w-5 h-5 sm:w-6 sm:h-6 rounded-md relative group"
+          >
+            <img
+              src="/images/icon1.png"
+              alt=""
+              class="w-full h-full cursor-pointer"
+            />
+            <div
+              class="absolute -left-16 bottom-0 mb-6 w-40 p-2 text-xs text-gray-200 bg-black rounded shadow-lg opacity-0 transition-opacity duration-300 transform -translate-y-2 group-hover:opacity-95 group-hover:translate-y-0"
+            >
+              @if (this.setting[0]) {
+                {{ this.setting[0].displayName }}#{{ this.profile?.userId }}
+              }
+            </div>
+          </div>
+        </div>
+        <div class="pt-8">
+          <button
+            routerLink="/setting/profile"
+            class="ml-auto md:ml-4 bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 rounded text-xs md:text-sm font-medium"
+          >
+            Chỉnh Sửa Hồ Sơ Người Dùng
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-[#2b2d31] p-4 rounded-lg space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-xs pb-1">TÊN HIỂN THỊ</p>
+            <p>{{ this.profile?.name }}</p>
+          </div>
+          <button
+            class="bg-gray-600 hover:bg-gray-700 text-white py-1 px-3 rounded text-xs md:text-sm font-medium"
+          >
+            Chỉnh sửa
+          </button>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-xs pb-1">TÊN ĐĂNG NHẬP</p>
+            <p>{{ this.profile?.name }}</p>
+          </div>
+          <button
+            class="bg-gray-600 hover:bg-gray-700 text-white py-1 px-3 rounded text-xs md:text-sm font-medium"
+            (click)="openDialogChangeName()"
+          >
+            Chỉnh sửa
+          </button>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-xs pb-1">EMAIL</p>
+            <p>
+              {{ showEmail ? profile?.email : getObfuscatedEmail() }}
+              <a
+                (click)="toggleEmailVisibility()"
+                class="text-blue-500 text-xs sm:text-sm hover:underline cursor-pointer"
+              >
+                {{ showEmail ? "Ẩn" : "Hiển thị" }}
+              </a>
+            </p>
+          </div>
+          <button
+            class="bg-gray-600 hover:bg-gray-700 text-white py-1 px-3 rounded text-xs md:text-sm font-medium"
+            (click)="openDialogChangeMail()"
+          >
+            Chỉnh sửa
+          </button>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-xs pb-1">SỐ ĐIỆN THOẠI</p>
+            <p>Bạn chưa thêm số điện thoại nào cả.</p>
+          </div>
+          <button
+            class="bg-gray-600 hover:bg-gray-700 text-white py-1 px-3 rounded text-xs md:text-sm font-medium"
+          >
+            Thêm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-base sm:text-lg font-medium mb-4 sm:mb-6">
+      Mật Khẩu và Xác Thực
+    </h3>
+    <button
+      class="bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 mb-4 sm:mb-6 rounded text-xs sm:text-sm font-medium"
+      (click)="openDialogChangePassword()"
+    >
+      Đổi Mật Khẩu
+    </button>
+
+    <div class="flex flex-col md:flex-row items-center">
+      <div class="w-full md:w-3/4 mb-6">
+        <div class="mb-6">
+          <h4 class="text-xs sm:text-sm mb-3 text-gray-300">
+            ỨNG DỤNG XÁC THỰC
+          </h4>
+          <p class="text-xs sm:text-sm text-gray-400 mb-6 font-sans">
+            Bảo vệ tài khoản Riffle bằng một lớp bảo mật bổ sung. Sau khi thiết
+            lập, bạn sẽ được yêu cầu nhập mật khẩu và hoàn thành một bước bổ
+            sung để có thể đăng nhập.
+          </p>
+          <button
+            class="bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 rounded text-xs sm:text-sm font-medium"
+            (click)="openDialogVerify()"
+          >
+            Bật Ứng Dụng Xác Thực
+          </button>
+        </div>
+        <div class="mb-6">
+          <h4 class="text-xs sm:text-sm mb-3 text-gray-300">MÃ BẢO MẬT</h4>
+          <p class="text-xs sm:text-sm text-gray-400 mb-3">
+            Thêm một lớp bảo vệ bổ sung cho tài khoản của bạn bằng một Mã Bảo
+            Mật.
+          </p>
+          <button
+            class="bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 rounded text-xs sm:text-sm font-medium"
+            (click)="openDialogVerify()"
+          >
+            Đăng ký Mã Bảo Mật
+          </button>
+        </div>
+      </div>
+      <div class="w-full md:w-1/4">
+        <img src="/images/icon2.png" alt="" class="w-full h-auto" />
+      </div>
+    </div>
+
+    <div>
+      <h4 class="text-xs sm:text-sm text-gray-300 mb-3">
+        NGỪNG SỬ DỤNG TÀI KHOẢN
+      </h4>
+      <p class="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6">
+        Nếu khóa tài khoản, bạn có thể khôi phục lại tài khoản của mình bất cứ
+        lúc nào.
+      </p>
+      <button
+        class="bg-red-600 hover:bg-red-800 text-white text-xs sm:text-sm px-4 py-2 mr-2 rounded"
+      >
+        Vô Hiệu Hóa Tài Khoản
+      </button>
+      <button
+        class="border-2 border-red-600 hover:bg-red-800 hover:border-red-800 text-white text-xs sm:text-sm px-4 py-2 rounded"
+      >
+        Xóa Tài Khoản
+      </button>
+    </div>
+  </div>
+</div>

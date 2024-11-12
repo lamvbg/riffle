@@ -1,0 +1,11 @@
+<div class="space-y-3 flex-grow relative group">
+  <button class="flex items-center mb-2">
+    <div class="w-14 h-14 rounded-full overflow-hidden hover:rounded-xl">
+      <img src="{{ iconSrc() }}" alt="{{ altText() }}" class="w-full h-full object-cover cursor-pointer" />
+    </div>
+  </button>
+  <div
+    class="absolute left-14 bottom-2 min-w-max max-w-xs p-2 text-sm text-gray-200 bg-black rounded  shadow-2xl opacity-0 transition-opacity font-sans font-semibold duration-300 group-hover:opacity-95">
+    {{ altText() }}
+  </div>
+</div>

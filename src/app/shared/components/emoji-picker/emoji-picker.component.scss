@@ -1,0 +1,15 @@
+.emoji {
+  cursor: pointer;
+  font-size: 30px;
+  transition: transform 0.2s;
+}
+
+.emoji:hover {
+  transform: scale(1.2);
+}
+
+.activeTab {
+  background-color: #404249;
+  color: #ffffff;
+  border-radius: 8px;
+}
