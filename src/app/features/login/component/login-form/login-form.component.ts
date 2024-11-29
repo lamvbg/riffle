@@ -51,4 +51,19 @@ export class LoginFormComponent {
     })
   }
 
+  public handleGoogleLogin(): void {
+    this.loginService.googleLogin();
+  }
+
+  public fetchGoogleUser(): void {
+    this.loginService.handleGoogleRedirect().subscribe({
+      next: (auth) => {
+        this.userStore.setUser(auth);
+        this.user$.next(auth.profile);
+      },
+      error: (error) => {
+        console.error('Google Login Error:', error);
+      },
+    });
+  }
 }

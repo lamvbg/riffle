@@ -10,6 +10,7 @@ export enum MemberRole {
 export interface MemberModel {
     id: string,
     role: MemberRole,
+    isOnline: boolean,
     profileId: string,
     server: ServerModel,
     profile: ProfileModel

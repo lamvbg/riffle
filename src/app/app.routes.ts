@@ -32,5 +32,5 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/setting/setting.routes').then((r) => r.settingRoutes),
     canActivate: [authenticationGuard],
-  },
+  }
 ];

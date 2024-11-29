@@ -1,8 +1,13 @@
 <div
   class="bg-[#2e3136] text-white w-64 h-screen flex flex-col overflow-y-auto custom-scroll"
 >
-  <div class="p-4 border-b border-neutral-900">
-    <h2 class="text-lg font-semibold">{{serverName}}</h2>
+  <div class="p-4 border-b border-neutral-900 flex justify-between">
+    <h2 class="text-lg font-semibold">{{ serverName }}</h2>
+    <span
+      class="material-icons text-gray-400 hover:text-gray-200 cursor-pointer text-xl"
+      (click)="openDialogSetting()"
+      >settings</span
+    >
   </div>
   <div class="flex-grow overflow-y-auto">
     <div class="p-4">
@@ -16,14 +21,111 @@
 
     <div class="h-px mt-3 ml-3 mr-3 bg-neutral-600"></div>
 
-    <div>
-      @for (channel of channelItems; track channel) {
-        <riffle-channel
-          [name]="channel.name"
-          [type]="channel.type"
-          (click)="onSelectChannel(channel.id)"
-        />
-      }
+    <div class="pl-4 pr-4 pt-4">
+      <div
+        class="flex justify-between w-full text-left hover:text-gray-200 rounded group"
+      >
+        <h3 class="text-xs font-semibold uppercase text-gray-400">
+          Text Channels
+        </h3>
+        <span
+          class="material-icons text-gray-400 hover:text-gray-200 cursor-pointer -mt-1"
+          (click)="openDialog()"
+          >add</span
+        >
+      </div>
+      <ul class="mt-2 space-y-1">
+        <li>
+          @for (channel of channelItems; track channel) {
+            @if (channel.type === "TEXT") {
+              <riffle-channel
+                [name]="channel.name"
+                [type]="channel.type"
+                (click)="onSelectChannel(channel.id, channel.type)"
+                (triggerFetchData)="refetch()"
+              />
+            }
+          }
+        </li>
+      </ul>
+    </div>
+    <div class="pl-4 pr-4 pt-4">
+      <div
+        class="flex justify-between w-full text-left hover:text-gray-200 rounded group"
+      >
+        <h3 class="text-xs font-semibold uppercase text-gray-400">
+          Audio Channels
+        </h3>
+        <span
+          class="material-icons text-gray-400 hover:text-gray-200 cursor-pointer -mt-1"
+          (click)="openDialog()"
+          >add</span
+        >
+      </div>
+      <ul class="mt-2 space-y-1">
+        <li>
+          @for (channel of channelItems; track channel) {
+            @if (channel.type === "AUDIO") {
+              <riffle-channel
+                [name]="channel.name"
+                [type]="channel.type"
+                (click)="onSelectChannel(channel.id, channel.type)"
+                (triggerFetchData)="refetch()"
+              />
+              <ul class="pl-8 mt-2 space-y-3">
+                @if (
+                  channel.id === selectedChannelId && channel.type === "AUDIO"
+                ) {
+                  @for (member of members; track member) {
+                    @if (member) {
+                      <li>
+                        <riffle-member-join-channel
+                          [name]="member.profile.name"
+                          [imageUrl]="member.profile.imageUrl"
+                        />
+                      </li>
+                    }
+                  }
+                }
+              </ul>
+            }
+          }
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="p-2 border-t border-neutral-700 bg-[#232428]">
+    <div class="flex flex-col">
+      <div class="flex items-center pb-2">
+        <span class="material-icons text-green-500">wifi</span>
+        <div class="ml-2">
+          <div class="text-xs text-green-500 font-medium">
+            Đã Kết Nối Giọng Nói
+          </div>
+          <div class="text-xs text-gray-400">zuzu-tungseo / For Fun</div>
+        </div>
+        <div class="ml-auto flex space-x-2">
+          <button
+            class="material-icons w-6 text-center transition transform hover:animate-shake"
+          >
+            phone
+          </button>
+        </div>
+      </div>
+
+      <div class="flex justify-around">
+        <button
+          class="material-icons w-6 text-center transition transform hover:animate-shake"
+        >
+          screen_share
+        </button>
+
+        <button
+          class="material-icons w-6 text-center transition transform hover:animate-shake"
+        >
+          video_call
+        </button>
+      </div>
     </div>
   </div>
   <div class="p-4 border-t border-neutral-700 flex items-center bg-[#232428]">

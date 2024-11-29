@@ -5,7 +5,7 @@ export interface MessageModel {
     id: string;
     content: string;
     safeContent?: SafeHtml;
-    fileUrl: string;
+    fileUrl?: string;
     channelId: string;
     createdAt: Date;
     memberId: string;

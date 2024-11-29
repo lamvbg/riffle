@@ -1,0 +1,167 @@
+<form
+  [formGroup]="editServerForm"
+  (ngSubmit)="editServer()"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-sans"
+>
+  <div class="bg-[#313338] text-white w-2/3 max-w-3xl rounded-lg shadow-lg p-6">
+    <div class="flex justify-end">
+      <button
+        type="button"
+        class="text-gray-400 hover:text-white"
+        (click)="onClose()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="flex justify-around mb-4">
+      <button
+        type="button"
+        (click)="selectTab('overview')"
+        [class.font-bold]="activeTab === 'overview'"
+      >
+        Tổng Quan
+      </button>
+      <button
+        type="button"
+        (click)="selectTab('roles')"
+        [class.font-bold]="activeTab === 'roles'"
+      >
+        Vai Trò
+      </button>
+    </div>
+    <ng-container *ngIf="activeTab === 'overview'">
+      <div class="flex space-x-6 items-center">
+        <div class="relative">
+          <img
+            [src]="uploadedImageUrl || server?.imageUrl"
+            alt="Avatar"
+            class="h-24 w-28 rounded-full"
+          />
+          <button
+            type="button"
+            class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+            (click)="removeImage()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          
+        </div>
+        <input
+          #fileInput
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          class="hidden"
+        />
+
+        <div>
+          <p class="text-lg font-semibold">Tổng Quan Về Máy Chủ</p>
+          <p class="text-sm text-gray-400">
+            Chúng tôi khuyên bạn nên sử dụng hình ảnh có kích thước tối thiểu
+            512x512 cho máy chủ.
+          </p>
+          <button
+            type="button"
+            (click)="triggerFileInput($event)"
+            class="mt-2 bg-gray-600 px-4 py-2 rounded hover:bg-gray-700"
+          >
+            Tải Lên Hình Ảnh
+          </button>
+        </div>
+        <div class="ml-auto">
+          <label class="block text-gray-400">TÊN MÁY CHỦ</label>
+          <input
+            formControlName="name"
+            type="text"
+            class="bg-[#202225] mt-1 p-2 rounded w-full"
+            [(ngModel)]="serverName"
+          />
+        </div>
+      </div>
+      <div *ngIf="isLoading" class="w-1/4 mt-2">
+        <div class="upload-progress relative h-4 bg-gray-200 rounded-full">
+          <div
+            [style.width.%]="uploadProgress"
+            class="progress-bar absolute h-full bg-indigo-500 rounded-full"
+          ></div>
+        </div>
+        <div class="text-white text-center mt-1">{{ uploadProgress }}%</div>
+      </div>
+    
+    </ng-container>
+    <ng-container *ngIf="activeTab === 'roles'">
+      <p class="text-lg font-semibold">Vai trò</p>
+      <p class="text-sm text-gray-400">
+        Sử dụng vai trò để phân nhóm các thành viên máy chủ và chỉ định quyền của họ.
+      </p>
+      <div class="bg-[#202225] p-4 rounded mt-4">
+        <p class="text-sm font-semibold">Quyền mặc định</p>
+        <p class="text-xs text-gray-400">
+          - áp dụng cho tất cả thành viên máy chủ
+        </p>
+      </div>
+      <table class="w-full mt-4">
+        <thead>
+          <tr class="text-left text-gray-400">
+            <th class="py-2">VAI TRÒ</th>
+            <th class="py-2">THÀNH VIÊN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of members" class="group hover:bg-[#202225]">
+            <td class="py-2">
+              <span>{{ member.role }}</span>
+            </td>
+            <td class="py-2 flex items-center justify-between">
+              <span>{{ member.profile.name }}</span>
+              <span
+              class="material-icons text-gray-400 hover:text-white cursor-pointer hidden group-hover:flex"
+              >edit</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <div class="flex justify-between mt-4">
+      <button
+        type="button"
+        class="text-gray-300 hover:text-white text-sm"
+        (click)="onClose()"
+      >
+        Trở lại
+      </button>
+      <button
+        role="submit"
+        class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 text-sm"
+      >
+        Lưu
+      </button>
+    </div>
+  </div>
+</form>

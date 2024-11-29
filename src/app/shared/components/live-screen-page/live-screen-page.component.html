@@ -1,0 +1,32 @@
+<div class="flex flex-col bg-black h-screen font-sans w-full custom-scroll">
+  <h1 class="text-lg text-white font-bold">{{channel?.name}}</h1>
+
+  <div class="flex-1 flex overflow-hidden">
+    <div class="flex-1 grid grid-cols-2 gap-4 p-4 overflow-y-auto">
+      <ng-container
+        *ngFor="let participant of participants | async; trackBy: trackBySessionId"
+      >
+        <riffle-participant [participant]="participant"></riffle-participant>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="flex justify-center">
+    <button
+      (click)="toggleMicrophone()"
+    >
+      <i class="material-icons text-white text-5xl pr-5">mic_on</i>
+    </button>
+    <button
+      (click)="toggleCamera()"
+    >
+      <i class="material-icons text-white text-5xl pr-20">video_call</i>
+    </button>
+    <button
+      (click)="leaveCall()"
+    >
+    <i class="material-icons text-red-700 text-5xl pr-5">phone</i>
+
+    </button>
+  </div>
+</div>

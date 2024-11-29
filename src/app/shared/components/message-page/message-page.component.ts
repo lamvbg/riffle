@@ -12,7 +12,7 @@ import { DialogUploadComponent } from '../../dialog/dialog-upload/dialog-upload.
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelApi } from 'src/app/core/api/channel.api';
 import { ChannelStore } from 'src/app/core/stores/channel.store';
-import { distinctUntilKeyChanged, filter, map, switchMap, tap } from 'rxjs';
+import { distinctUntilChanged, distinctUntilKeyChanged, filter, map, switchMap, tap } from 'rxjs';
 import { MessageModel } from 'src/app/core/models/message.model';
 import { MessageApi } from 'src/app/core/api/message.api';
 import { UserStore } from 'src/app/core/stores/user.store';
@@ -37,6 +37,7 @@ import { ProfileModel } from 'src/app/core/models/profile.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagePageComponent {
+  private readonly imageExtensionTypes = ['.jpeg', '.png', '.gif'];
   public messages: MessageModel[] = [];
   public server: ServerModel | null = null;
   public profile: ProfileModel | null = null;
@@ -62,7 +63,7 @@ export class MessagePageComponent {
   public ngOnInit(): void {
     this.channelStore.getChannel
       .pipe(
-        tap(() =>  this.socketService.disconnect()),
+        distinctUntilChanged(),
         filter(Boolean),
         switchMap((channelId) => {
           return this.channelApi.getChannel(channelId);
@@ -73,7 +74,7 @@ export class MessagePageComponent {
           this.channelId = channel.id;
           this.channelName = `# ${channel.name}`;
           this.messages = channel.messages;
-          console.log(channel.messages)
+          console.log(this.messages)
           this.initializeSocketListeners();
           this.cdf.detectChanges();
         },
@@ -145,7 +146,7 @@ openDialog(): void {
     const messageData = {
       memberId: this.memberId,
       channelId: this.channelId,
-      content: `<a href="${uploadedFile.url}" target="_blank">${uploadedFile.name}</a>`,
+      content: uploadedFile.name,
       fileType: uploadedFile.type,
       fileUrl: uploadedFile.url,
     };

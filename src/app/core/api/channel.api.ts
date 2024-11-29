@@ -11,16 +11,10 @@ export class ChannelApi {
   public constructor(private http: HttpClient) {}
 
   public createChannel(
-    name: string,
-    type: ChannelType,
-    profileId: string,
     serverId: string,
+    channel: Partial<ChannelModel>,
   ): Observable<ChannelModel> {
-    return this.http.post<ChannelModel>(`${this.basedUrl}/${serverId}`, {
-        name,
-        type,
-        profileId,
-    });
+    return this.http.post<ChannelModel>(`${this.basedUrl}?serverId=${serverId}`, channel);
   }
 
   public getChannels(): Observable<ChannelModel[]> {
@@ -31,8 +25,8 @@ export class ChannelApi {
     return this.http.get<ChannelModel>(`${this.basedUrl}/${channelId}`);
   }
   
-  public updateChannel(channelId: string, name: string, type: ChannelType): Observable<ChannelModel> {
-    return this.http.patch<ChannelModel>(`${this.basedUrl}/${channelId}`, { 
+  public updateChannel(channelId: string, serverId: string, name: string, type: ChannelType): Observable<ChannelModel> {
+    return this.http.patch<ChannelModel>(`${this.basedUrl}/${channelId}?serverId=${serverId}`, { 
         name,
         type
      });

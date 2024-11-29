@@ -21,4 +21,12 @@ export class AuthApi {
   public getUser(userId: string): Observable<UserModel> {
     return this.http.get<UserModel>(`${this.basedUrl}/users/${userId}`);
   }
+
+  public googleLogin(): void {
+    window.location.href = `${this.basedUrl}/google/login`;
+  }
+
+  public handleGoogleRedirect(): Observable<AuthModel> {
+    return this.http.get<AuthModel>(`${this.basedUrl}/google/redirect`);
+  }
 }

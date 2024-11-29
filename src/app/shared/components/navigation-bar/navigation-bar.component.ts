@@ -16,14 +16,13 @@ import { AsyncPipe } from '@angular/common';
 import { ServerStore } from 'src/app/core/stores/server.store';
 import { ServerModel } from 'src/app/core/models/server.model';
 import { ChannelStore } from 'src/app/core/stores/channel.store';
+import { DialogJoinServerComponent } from '../../dialog/dialog-join-server/dialog-join-server.component';
+import { MemberStore } from 'src/app/core/stores/member.store';
 
 @Component({
   selector: 'riffle-navigation-bar',
   standalone: true,
-  imports: [
-    ServerItemComponent,
-    MatTooltip,
-  ],
+  imports: [ServerItemComponent, MatTooltip],
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +30,7 @@ import { ChannelStore } from 'src/app/core/stores/channel.store';
 export class NavigationBarComponent implements OnInit {
   private triggerFetchData$ = new Subject<void>();
   public serverItems: ServerModel[] = [];
+  private profileId: string = '';
   constructor(
     public dialog: MatDialog,
     private profileApi: ProfileApi,
@@ -38,7 +38,8 @@ export class NavigationBarComponent implements OnInit {
     private destroyRef: DestroyRef,
     private cdf: ChangeDetectorRef,
     private serverStore: ServerStore,
-    private channelStore: ChannelStore
+    private channelStore: ChannelStore,
+    private memberStore: MemberStore,
   ) {}
 
   public ngOnInit(): void {
@@ -49,7 +50,6 @@ export class NavigationBarComponent implements OnInit {
         switchMap((user) => {
           return this.profileApi.getServerProfile(user.profile.profileId);
         }),
-
       )
       .subscribe({
         next: (serverItems: any) => {
@@ -63,16 +63,46 @@ export class NavigationBarComponent implements OnInit {
 
   public onSelectServer(serverId: string): void {
     this.serverStore.setServer(serverId);
-    const firstChannelId = this.serverItems.find(server => server.id === serverId)?.channels[0]?.id;
-    if (firstChannelId) {
-      this.channelStore.setChannel(firstChannelId);
-    }
+
+    const firstChannelId = this.serverItems.find(
+      (server) => server.id === serverId,
+    )?.channels?.[0]?.id;
+
+    this.userStore.getUser.subscribe({
+      next: (user) => {
+        const currentProfileId = user?.profile?.profileId;
+
+        if (!currentProfileId) return;
+
+        const member = this.serverItems
+          .find((server) => server.id === serverId)
+          ?.members?.find((member) => member.profileId === currentProfileId);
+
+        if (member) {
+          this.memberStore.setMember(member.id);
+        } else {
+          console.warn('Member not found for the current profile ID');
+        }
+
+        if (firstChannelId) {
+          this.channelStore.setChannel(firstChannelId);
+        }
+      },
+    });
   }
-  
 
   openDialog(): void {
     this.dialog
       .open(DialogAddServerComponent)
+      .afterClosed()
+      .subscribe(() => {
+        this.triggerFetchData$.next();
+      });
+  }
+
+  openDialogJoinServer(): void {
+    this.dialog
+      .open(DialogJoinServerComponent)
       .afterClosed()
       .subscribe(() => {
         this.triggerFetchData$.next();

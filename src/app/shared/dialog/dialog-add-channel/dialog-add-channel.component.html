@@ -1,4 +1,6 @@
-<div
+<form
+  [formGroup]="addChannelForm"
+  (ngSubmit)="addChannel()"
   class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-sans"
 >
   <div class="bg-[#313338] rounded-lg shadow-lg w-full max-w-md p-6">
@@ -38,9 +40,9 @@
           </div>
           <input
             type="radio"
-            name="channelType"
+            formControlName="type"
+            [value]="ChannelType.TextChannels"
             class="form-radio text-gray-200"
-            checked
           />
         </label>
         <label class="flex items-center p-3 bg-[#2b2d31] rounded">
@@ -53,7 +55,8 @@
           </div>
           <input
             type="radio"
-            name="channelType"
+            formControlName="type"
+            [value]="ChannelType.AudioChannels"
             class="form-radio text-gray-200"
           />
         </label>
@@ -63,6 +66,7 @@
       <h3 class="text-xs font-semibold mb-4 text-gray-300">TÊN KÊNH</h3>
       <input
         type="text"
+        formControlName="name"
         class="w-full bg-[#1e1f22] text-white p-2 rounded"
         placeholder="# kênh-mới"
       />
@@ -74,10 +78,11 @@
         Hủy bỏ
       </button>
       <button
+        role="submit"
         class="bg-indigo-600 text-sm hover:bg-indigo-700 text-white py-1 px-4 rounded"
       >
         Tạo kênh
       </button>
     </div>
   </div>
-</div>
+</form>

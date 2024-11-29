@@ -18,10 +18,8 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [
     LoginFormComponent,
-    ButtonComponent,
     RegisterFormComponent,
     RouterLink,
-    AsyncPipe,
   ],
   providers: [LoginService],
   templateUrl: './login.component.html',

@@ -1,0 +1,14 @@
+<div
+  class="relative bg-black rounded-lg overflow-hidden border border-gray-700"
+>
+  <video
+    #videoElement
+    id="video-{{ participant.sessionId }}"
+    [attr.sessionId]="participant.sessionId"
+    autoplay
+    class="w-full h-full object-cover"
+  ></video>
+  <p class="absolute bottom-2 left-2 bg-black/50 text-sm px-2 py-1 rounded">
+    {{ participant.name }}
+  </p>
+</div>

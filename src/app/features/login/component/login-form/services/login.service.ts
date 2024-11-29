@@ -15,4 +15,12 @@ export class LoginService {
   public getUser(userId: string): Observable<UserModel> { 
     return this.authApi.getUser(userId);
   }
+
+  public googleLogin(): void {
+    this.authApi.googleLogin();
+  }
+
+  public handleGoogleRedirect(): Observable<AuthModel> {
+    return this.authApi.handleGoogleRedirect();
+  }
 }

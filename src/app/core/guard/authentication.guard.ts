@@ -7,14 +7,17 @@ import {
 } from '@angular/router';
 import { UserStore } from '../stores/user.store';
 import { map, switchMap } from 'rxjs';
+import { SocketService } from 'src/app/shared/components/message-page/services/socket.service';
 
 export const authenticationGuard: CanActivateFn = () => {
   const userStore = inject(UserStore);
   const router = inject(Router);
+  const socketService = inject(SocketService);
 
   return userStore.getUser.pipe(
     map((authModel) => {
       if (authModel?.access_token) {
+        socketService.connect();
         return true;
       } else {
         return router.createUrlTree(['/login']);

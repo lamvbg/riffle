@@ -1,5 +1,11 @@
 <div class="flex">
-    <riffle-navigation-bar />
-    <riffle-left-panel />
+  <riffle-navigation-bar />
+  <riffle-left-panel (channelChanged)="onChannelChanged($event)" />
+  @if(selectedChannelType === "TEXT") {
     <riffle-message-page />
+  }
+  @if(selectedChannelType === "AUDIO") {
+    <riffle-live-screen-page [call]="call"/>
+  }
+  <riffle-right-pannel />
 </div>
