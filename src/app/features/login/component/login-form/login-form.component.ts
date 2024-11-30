@@ -1,21 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginFormModel } from './models/login-form.model';
 import { ButtonComponent } from '@app-ui';
 import { LoginService } from './services/login.service';
 import { ReplaySubject } from 'rxjs';
 import { UserModel } from 'src/app/core/models/user.model';
 import { UserStore } from 'src/app/core/stores/user.store';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'riffle-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonComponent],
+  imports: [ReactiveFormsModule, ButtonComponent, CommonModule],
   providers: [LoginService],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
@@ -23,11 +19,13 @@ import { UserStore } from 'src/app/core/stores/user.store';
 })
 export class LoginFormComponent {
   public readonly user$ = new ReplaySubject<UserModel>(1);
+  public loginError: boolean = false;
 
   public constructor(
     private loginService: LoginService,
     private userStore: UserStore,
   ) {}
+
   public readonly loginForm = new FormGroup<LoginFormModel>({
     username: new FormControl('', {
       nonNullable: true,
@@ -40,15 +38,20 @@ export class LoginFormComponent {
   });
 
   public handleLogin(): void {
-    this.loginService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).subscribe({
-      next: (value) => {
-        this.userStore.setUser(value);
-        this.user$.next(value.profile);
+    const username = this.loginForm.controls.username.value;
+    const password = this.loginForm.controls.password.value;
+
+    this.loginService.login(username, password).subscribe({
+      next: (user) => {
+        this.userStore.setUser(user);
+        this.user$.next(user.profile);
+        this.loginError = false; // Reset login error on success
       },
       error: (error) => {
-        console.log(error);
+        this.loginError = true; // Set login error flag on failure
+        console.log('Login Error:', error);
       }
-    })
+    });
   }
 
   public handleGoogleLogin(): void {

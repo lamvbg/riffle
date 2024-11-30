@@ -11,11 +11,12 @@ import { filter, switchMap } from 'rxjs';
 import { AddChannelService } from './services/add-channel.service';
 import { ServerStore } from 'src/app/core/stores/server.store';
 import { ChannelModel, ChannelType } from 'src/app/core/models/channel.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'riffle-dialog-add-channel',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   providers: [AddChannelService],
   templateUrl: './dialog-add-channel.component.html',
   styleUrl: './dialog-add-channel.component.scss',
@@ -24,6 +25,8 @@ import { ChannelModel, ChannelType } from 'src/app/core/models/channel.model';
 export class DialogAddChannelComponent {
   public channel: ChannelModel | null = null;
   public ChannelType = ChannelType;
+  public addError: boolean = false;
+
   public constructor(
     private dialogRef: MatDialogRef<DialogAddChannelComponent>,
     private cdr: ChangeDetectorRef,
@@ -68,6 +71,7 @@ export class DialogAddChannelComponent {
     .subscribe({
       next: (channel) => {
         this.channel = channel;
+        this.addError = false;
         this.dialogRef.close(true);
       },
     });

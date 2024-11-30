@@ -52,7 +52,7 @@ export class ParticipantComponent implements AfterViewInit, OnDestroy {
         ?.bindVideoElement(
           this.videoElement?.nativeElement,
           this.participant.sessionId,
-          'screenShareTrack'
+          'videoTrack'
         );
 
       this.unbindAudioElement = this.callingService

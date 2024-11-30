@@ -36,7 +36,13 @@ export class LoginCallbackComponent implements OnInit {
           return this.profileApi
             .getUser(params['profileId'])
             .pipe(
-              map((profile) => ({ profile, access_token: params['token'] })),
+              map((profile) => ({ profile: {
+                profileId: profile.id,
+                profileName: profile.name,
+                profileEmail: profile.email,
+                profileImageUrl: profile.imageUrl,
+                profileUserId: profile.userId
+              }, access_token: params['token'] })),
             );
         }),
       )

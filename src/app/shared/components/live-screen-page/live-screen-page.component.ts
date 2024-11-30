@@ -61,7 +61,7 @@ export class LiveScreenPageComponent {
   }
 
   toggleCamera() {
-    this.callingService.toggleScreenShare();
+    this.callingService.toggleCamera();
   }
 
   trackBySessionId(_: number, participant: StreamVideoParticipant) {

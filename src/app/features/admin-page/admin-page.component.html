@@ -1,0 +1,10 @@
+<div class="flex">
+    <riffle-admin-navigation-bar
+    (menuClick)="onPanelClick($event)"
+    class="cursor-pointer"
+    ></riffle-admin-navigation-bar>
+  
+    <div class="flex-1 p-6 bg-gray-100">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

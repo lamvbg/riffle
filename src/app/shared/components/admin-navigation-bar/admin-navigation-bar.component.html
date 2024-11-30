@@ -1,0 +1,20 @@
+<div class="flex flex-col w-64 h-screen bg-gray-800 text-white">
+    <div class="p-4 text-lg font-bold">Admin Panel</div>
+    <nav class="flex-1">
+      <ul>
+        <li class="px-4 py-2 hover:bg-gray-700">
+          <a (click)="selectView('dashboard')"routerLinkActive="font-bold">Dashboard</a>
+        </li>
+        <li class="px-4 py-2 hover:bg-gray-700">
+          <a (click)="selectView('users')"
+          routerLinkActive="font-bold">User</a>
+        </li>
+        <li class="px-4 py-2 hover:bg-gray-700">
+          <a (click)="selectView('servers')" routerLinkActive="font-bold">Server</a>
+        </li>
+        <li class="px-4 py-2 hover:bg-gray-700">
+          <a (click)="selectView('channels')" routerLinkActive="font-bold">Channel</a>
+        </li>
+      </ul>
+    </nav>
+  </div>

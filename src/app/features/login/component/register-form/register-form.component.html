@@ -1,8 +1,9 @@
 <form [formGroup]="registerForm">
+  <!-- Email Field -->
   <div class="mb-4">
-    <label for="email" class="block text-gray-300 text-sm font-bold mb-2"
-    >Email</label
-    >
+    <label for="email" class="block text-gray-300 text-sm font-bold mb-2">
+      Email
+    </label>
     <input
       type="text"
       id="email"
@@ -10,11 +11,18 @@
       formControlName="email"
       name="email"
     />
+    <!-- Error message for email -->
+    <div *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched" class="text-red-500 text-sm">
+      <small *ngIf="registerForm.controls.email.errors?.['required']">Email is required.</small>
+      <small *ngIf="registerForm.controls.email.errors?.['email']">Invalid email format.</small>
+    </div>
   </div>
+
+  <!-- Display Name Field -->
   <div class="mb-4">
-    <label for="displayName" class="block text-gray-300 text-sm font-bold mb-2"
-    >Display Name</label
-    >
+    <label for="displayName" class="block text-gray-300 text-sm font-bold mb-2">
+      Display Name
+    </label>
     <input
       type="text"
       id="displayName"
@@ -22,11 +30,17 @@
       formControlName="displayName"
       name="displayName"
     />
+    <!-- Error message for displayName -->
+    <div *ngIf="registerForm.controls.displayName.invalid && registerForm.controls.displayName.touched" class="text-red-500 text-sm">
+      <small *ngIf="registerForm.controls.displayName.errors?.['required']">Display name is required.</small>
+    </div>
   </div>
+
+  <!-- Tag Field -->
   <div class="mb-4">
-    <label for="username" class="block text-gray-300 text-sm font-bold mb-2"
-    >Tag</label
-    >
+    <label for="username" class="block text-gray-300 text-sm font-bold mb-2">
+      Tag
+    </label>
     <input
       type="text"
       id="username"
@@ -34,11 +48,17 @@
       formControlName="tag"
       name="tag"
     />
+    <!-- Error message for tag -->
+    <div *ngIf="registerForm.controls.tag.invalid && registerForm.controls.tag.touched" class="text-red-500 text-sm">
+      <small *ngIf="registerForm.controls.tag.errors?.['required']">Tag is required.</small>
+    </div>
   </div>
+
+  <!-- Password Field -->
   <div class="mb-6">
-    <label for="password" class="block text-gray-300 text-sm font-bold mb-2"
-    >Password</label
-    >
+    <label for="password" class="block text-gray-300 text-sm font-bold mb-2">
+      Password
+    </label>
     <input
       type="password"
       id="password"
@@ -46,11 +66,18 @@
       formControlName="password"
       name="password"
     />
+    <!-- Error message for password -->
+    <div *ngIf="registerForm.controls.password.invalid && registerForm.controls.password.touched" class="text-red-500 text-sm">
+      <small *ngIf="registerForm.controls.password.errors?.['required']">Password is required.</small>
+      <small *ngIf="registerForm.controls.password.errors?.['minlength']">Password must be at least 6 characters.</small>
+    </div>
   </div>
+
+  <!-- Avatar Field -->
   <div class="mb-4">
-    <label for="date" class="block text-gray-300 text-sm font-bold mb-2"
-    >Avatar</label
-    >
+    <label for="avatar" class="block text-gray-300 text-sm font-bold mb-2">
+      Avatar
+    </label>
     <input
       type="text"
       id="avatar"
@@ -58,7 +85,13 @@
       formControlName="imageUrl"
       name="imageUrl"
     />
+    <!-- Error message for imageUrl -->
+    <div *ngIf="registerForm.controls.imageUrl.invalid && registerForm.controls.imageUrl.touched" class="text-red-500 text-sm">
+      <small *ngIf="registerForm.controls.imageUrl.errors?.['required']">Avatar URL is required.</small>
+    </div>
   </div>
+
+  <!-- Submit Button -->
   <div class="flex items-center justify-between">
     <riffle-button
       label="Submit"

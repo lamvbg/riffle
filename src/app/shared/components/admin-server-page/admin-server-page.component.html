@@ -1,0 +1,42 @@
+<div class="p-4 bg-white shadow rounded">
+    <h1 class="text-xl font-bold mb-4">Server Management</h1>
+    <p class="mb-4">Manage all servers in the system.</p>
+  
+    <!-- Table for displaying users -->
+    <div *ngIf="server.length > 0; else noServer">
+      <table class="table-auto border-collapse w-full">
+        <thead>
+          <tr class="bg-gray-200 text-left">
+            <th class="border px-4 py-2">ID</th>
+            <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let server of server" class="hover:bg-gray-100">
+              <td class="border px-4 py-2">{{ server.id }}</td>
+            <td class="border px-4 py-2">{{ server.name }}</td>
+            <td class="border px-4 py-2">
+              <button
+                (click)="editServer(server)"
+                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 mr-2"
+              >
+                Edit
+              </button>
+              <button
+                (click)="removerServer(server)"
+                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- No profiles -->
+    <ng-template #noServer>
+      <p class="text-gray-500">No Servers found.</p>
+    </ng-template>
+  </div>

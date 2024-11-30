@@ -1,0 +1,44 @@
+<div class="p-4 bg-white shadow rounded">
+    <h1 class="text-xl font-bold mb-4">User Management</h1>
+    <p class="mb-4">Manage all users in the system.</p>
+  
+    <!-- Table for displaying users -->
+    <div *ngIf="profile.length > 0; else noProfiles">
+      <table class="table-auto border-collapse w-full">
+        <thead>
+          <tr class="bg-gray-200 text-left">
+            <th class="border px-4 py-2">ID</th>
+            <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">Email</th>
+            <th class="border px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of profile" class="hover:bg-gray-100">
+              <td class="border px-4 py-2">{{ user.id }}</td>
+            <td class="border px-4 py-2">{{ user.name }}</td>
+            <td class="border px-4 py-2">{{ user.email }}</td>
+            <td class="border px-4 py-2">
+              <button
+                (click)="editUser(user)"
+                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 mr-2"
+              >
+                Edit
+              </button>
+              <button
+                (click)="removeUser(user)"
+                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- No profiles -->
+    <ng-template #noProfiles>
+      <p class="text-gray-500">No profiles found.</p>
+    </ng-template>
+  </div>

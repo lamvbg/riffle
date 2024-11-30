@@ -1,0 +1,44 @@
+<div class="p-4 bg-white shadow rounded">
+    <h1 class="text-xl font-bold mb-4">Channels Management</h1>
+    <p class="mb-4">Manage all channels in the system.</p>
+  
+    <!-- Table for displaying users -->
+    <div *ngIf="channel.length > 0; else nochannels">
+      <table class="table-auto border-collapse w-full">
+        <thead>
+          <tr class="bg-gray-200 text-left">
+            <th class="border px-4 py-2">ID</th>
+            <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">Type</th>
+            <th class="border px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let channel of channel" class="hover:bg-gray-100">
+              <td class="border px-4 py-2">{{ channel.id }}</td>
+            <td class="border px-4 py-2">{{ channel.name }}</td>
+            <td class="border px-4 py-2">{{ channel.type }}</td>
+            <td class="border px-4 py-2">
+              <button
+                (click)="editChannel(channel)"
+                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 mr-2"
+              >
+                Edit
+              </button>
+              <button
+                (click)="removerChannel(channel)"
+                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- No channels -->
+    <ng-template #nochannels>
+      <p class="text-gray-500">No channels found.</p>
+    </ng-template>
+  </div>

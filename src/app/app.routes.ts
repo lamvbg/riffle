@@ -21,6 +21,14 @@ export const routes: Routes = [
     canActivate: [authenticationGuard],
   },
   {
+    path: 'admin',
+    loadChildren: () =>
+      import('./features/admin-page/admin.routes').then(
+        (r) => r.adminPageRoutes,
+      ),
+      canActivate: [unauthenticationGuard],
+  },
+  {
     path: 'landing-page',
     loadChildren: () =>
       import('./features/landing-page/landing-page.routes').then(
